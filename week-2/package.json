@@ -1,0 +1,17 @@
+{
+  "name": "webthism-week-2",
+  "version": "1.0.0",
+  "description": "Week 2: Database Basics & Simple CRUD API (MongoDB)",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.4.1",
+    "zod": "^3.23.8"
+  }
+}
