@@ -1,4 +1,4 @@
-# WebThism: Full-Stack Development Curriculum 🚀
+# WebThism: Full-Stack Development Curriculum
 
 Welcome to **WebThism**, a comprehensive journey through modern full-stack development, moving from fundamental server concepts to sophisticated, secure APIs.
 
