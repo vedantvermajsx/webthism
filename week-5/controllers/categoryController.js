@@ -1,5 +1,5 @@
 const Category = require('../models/Category');
-const slugify = require('slugify'); // Need to install this
+const slugify = require('slugify'); 
 
 exports.getCategories = async (req, res) => {
     try {
@@ -13,7 +13,6 @@ exports.getCategories = async (req, res) => {
 exports.createCategory = async (req, res) => {
     try {
         const { name, description } = req.body;
-        // Basic slugify if plugin not used or manually
         const slug = name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, ''); 
         
         const category = await Category.create({ name, slug, description });

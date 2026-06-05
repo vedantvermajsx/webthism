@@ -1,19 +1,16 @@
 const Product = require('../models/Product');
 const Category = require('../models/Category');
 
-// @desc    Get all products (with filtering, search, pagination)
 exports.getProducts = async (req, res) => {
     try {
         const { keyword, category, minPrice, maxPrice, sort, page = 1, limit = 10 } = req.query;
 
         const query = {};
 
-        // Search by keyword (name or description)
         if (keyword) {
             query.$text = { $search: keyword };
         }
 
-        // Filter by category
         if (category) {
             const categoryDoc = await Category.findOne({ slug: category });
             if (categoryDoc) {
@@ -21,7 +18,6 @@ exports.getProducts = async (req, res) => {
             }
         }
 
-        // Filter by price range
         if (minPrice || maxPrice) {
             query.price = {};
             if (minPrice) query.price.$gte = Number(minPrice);
@@ -30,7 +26,6 @@ exports.getProducts = async (req, res) => {
 
         let productsQuery = Product.find(query).populate('category', 'name slug');
 
-        // Sorting
         if (sort) {
             const sortBy = sort.split(',').join(' ');
             productsQuery = productsQuery.sort(sortBy);
@@ -38,7 +33,6 @@ exports.getProducts = async (req, res) => {
             productsQuery = productsQuery.sort('-createdAt');
         }
 
-        // Pagination
         const skip = (Number(page) - 1) * Number(limit);
         productsQuery = productsQuery.skip(skip).limit(Number(limit));
 
@@ -58,7 +52,6 @@ exports.getProducts = async (req, res) => {
     }
 };
 
-// @desc    Get single product
 exports.getProductById = async (req, res) => {
     try {
         const product = await Product.findById(req.params.id).populate('category', 'name slug');
@@ -71,7 +64,6 @@ exports.getProductById = async (req, res) => {
     }
 };
 
-// @desc    Create new product (Admin only)
 exports.createProduct = async (req, res) => {
     try {
         const product = await Product.create(req.body);
@@ -81,7 +73,6 @@ exports.createProduct = async (req, res) => {
     }
 };
 
-// @desc    Update product (Admin only)
 exports.updateProduct = async (req, res) => {
     try {
         let product = await Product.findById(req.params.id);
@@ -100,7 +91,6 @@ exports.updateProduct = async (req, res) => {
     }
 };
 
-// @desc    Delete product (Admin only)
 exports.deleteProduct = async (req, res) => {
     try {
         const product = await Product.findById(req.params.id);

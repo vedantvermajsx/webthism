@@ -16,7 +16,7 @@ const productSchema = z.object({
     name: z.string().min(3, 'Product name must be at least 3 characters'),
     description: z.string().min(10, 'Description must be at least 10 characters'),
     price: z.number().positive('Price must be positive'),
-    category: z.string(), // ObjectId as string
+    category: z.string(), 
     stock: z.number().int().min(0, 'Stock cannot be negative'),
     images: z.array(z.object({ url: z.string(), public_id: z.string() })).optional()
 });
